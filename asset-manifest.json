@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/plagarismdetection/static/css/main.e1d4466d.chunk.css",
-    "main.js": "/plagarismdetection/static/js/main.b7c17699.chunk.js",
-    "main.js.map": "/plagarismdetection/static/js/main.b7c17699.chunk.js.map",
+    "main.css": "/plagarismdetection/static/css/main.e8656c15.chunk.css",
+    "main.js": "/plagarismdetection/static/js/main.4b0f5784.chunk.js",
+    "main.js.map": "/plagarismdetection/static/js/main.4b0f5784.chunk.js.map",
     "runtime-main.js": "/plagarismdetection/static/js/runtime-main.c9a9e9b0.js",
     "runtime-main.js.map": "/plagarismdetection/static/js/runtime-main.c9a9e9b0.js.map",
-    "static/js/2.36490a75.chunk.js": "/plagarismdetection/static/js/2.36490a75.chunk.js",
-    "static/js/2.36490a75.chunk.js.map": "/plagarismdetection/static/js/2.36490a75.chunk.js.map",
+    "static/js/2.d7ce4483.chunk.js": "/plagarismdetection/static/js/2.d7ce4483.chunk.js",
+    "static/js/2.d7ce4483.chunk.js.map": "/plagarismdetection/static/js/2.d7ce4483.chunk.js.map",
     "static/js/3.68466bbb.chunk.js": "/plagarismdetection/static/js/3.68466bbb.chunk.js",
     "static/js/3.68466bbb.chunk.js.map": "/plagarismdetection/static/js/3.68466bbb.chunk.js.map",
     "index.html": "/plagarismdetection/index.html",
-    "static/css/main.e1d4466d.chunk.css.map": "/plagarismdetection/static/css/main.e1d4466d.chunk.css.map",
-    "static/js/2.36490a75.chunk.js.LICENSE.txt": "/plagarismdetection/static/js/2.36490a75.chunk.js.LICENSE.txt",
+    "static/css/main.e8656c15.chunk.css.map": "/plagarismdetection/static/css/main.e8656c15.chunk.css.map",
+    "static/js/2.d7ce4483.chunk.js.LICENSE.txt": "/plagarismdetection/static/js/2.d7ce4483.chunk.js.LICENSE.txt",
     "static/media/undraw_adminlogin.10241078.svg": "/plagarismdetection/static/media/undraw_adminlogin.10241078.svg",
     "static/media/undraw_facultylogin.f3cb7c0e.svg": "/plagarismdetection/static/media/undraw_facultylogin.f3cb7c0e.svg",
     "static/media/undraw_studentlogin.57279cc8.svg": "/plagarismdetection/static/media/undraw_studentlogin.57279cc8.svg",
@@ -20,8 +20,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.c9a9e9b0.js",
-    "static/js/2.36490a75.chunk.js",
-    "static/css/main.e1d4466d.chunk.css",
-    "static/js/main.b7c17699.chunk.js"
+    "static/js/2.d7ce4483.chunk.js",
+    "static/css/main.e8656c15.chunk.css",
+    "static/js/main.4b0f5784.chunk.js"
   ]
 }
