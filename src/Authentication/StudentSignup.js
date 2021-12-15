@@ -15,8 +15,30 @@ const StudentSignup = () => {
     const password = useRef({});
     password.current = watch("password", "");
 
-    const onSubmit = (data) => console.log(data);
-    // console.log(errors)
+    const onSubmit = (data) => {
+        // console.log(data);
+        // console.log(errors)
+        console.log(data.name);
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              studentname:data.name,
+              studentbranch:data.branch,
+              studentemail:data.email,
+              studentpassword:data.password,
+            }),
+          };
+          fetch("http://localhost:5000/studentsignup", requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+            //   console.log(data);
+            }).catch(function (error) {
+              console.log(error);
+          })
+        
+    }
+    
 
 
     return ( 

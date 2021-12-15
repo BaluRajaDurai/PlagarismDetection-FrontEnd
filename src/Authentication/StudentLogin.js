@@ -9,11 +9,25 @@ import Divider from '@mui/material/Divider';
 const StudentLogin = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = (data) => console.log(data);
+    const onSubmit = (data) =>{
+        console.log(data);
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        };
+        fetch('http://localhost:5000/studentdetail', requestOptions)
+        .then((response) => response.json())
+        .then((d) => {
+          console.log(d)
+
+        }).catch(function (error) {
+          console.log(error);
+      })
+    } 
     // console.log(errors)
 
 
-    return ( 
+    return (
 
         <div class="container-fluid">
             <div class="row">
