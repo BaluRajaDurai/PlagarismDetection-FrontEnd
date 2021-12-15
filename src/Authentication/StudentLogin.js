@@ -70,7 +70,7 @@ const StudentLogin = () => {
                                     <Divider />
                                 </div>   
                                 <div class="mt-3 text-center">
-                                    <Link href="/studentsignup" underline="none" variant="secondary" style={{ color:'#6C63FF'}}>
+                                    <Link href="/plagarismdetection/studentsignup" underline="none" variant="secondary" style={{ color:'#6C63FF'}}>
                                         {"Don't have an account? Sign Up"}
                                     </Link>
                                 </div>

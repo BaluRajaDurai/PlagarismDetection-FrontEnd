@@ -13,10 +13,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/plagarismdetection" element={<WelcomePage />}/>
-        <Route path="/studentlogin" element={<StudentLogin />} />
-        <Route path="/studentsignup" element={<StudentSignup />} />
-        <Route path="/facultylogin" element={<FacultyLogin />} />
-        <Route path="/adminlogin" element={<AdminLogin />} />
+        <Route path="/plagarismdetection/studentlogin" element={<StudentLogin />} />
+        <Route path="/plagarismdetection/studentsignup" element={<StudentSignup />} />
+        <Route path="/plagarismdetection/facultylogin" element={<FacultyLogin />} />
+        <Route path="/plagarismdetection/adminlogin" element={<AdminLogin />} />
       </Routes>
     </BrowserRouter>  
   );

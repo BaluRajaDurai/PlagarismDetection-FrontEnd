@@ -35,7 +35,7 @@ const WelcomePage = () => {
                                         <PeopleAltIcon />
                                     </Avatar>
                                     </ListItemAvatar>
-                                    <Link href="/studentlogin" underline="none">
+                                    <Link href="/plagarismdetection/studentlogin" underline="none">
                                         { 
                                             <ListItemText  
                                             primary={<Typography style={{ fontWeight: '600'}}>Student</Typography>} 
@@ -50,7 +50,7 @@ const WelcomePage = () => {
                                         <WorkIcon />
                                     </Avatar>
                                     </ListItemAvatar>
-                                    <Link href="/facultylogin" underline="none">
+                                    <Link href="/plagarismdetection/facultylogin" underline="none">
                                         { 
                                             <ListItemText  
                                             primary={<Typography style={{ fontWeight: '600'}}>Faculty</Typography>}  
@@ -65,7 +65,7 @@ const WelcomePage = () => {
                                         <AdminPanelSettingsIcon />
                                     </Avatar>
                                     </ListItemAvatar>
-                                    <Link href="/adminlogin" underline="none">
+                                    <Link href="/plagarismdetection/adminlogin" underline="none">
                                         { <ListItemText 
                                              primary={<Typography style={{ fontWeight: '600'}}>Admin</Typography>} 
                                             secondary="continue as admin" /> 
