@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import undraw_welcome from '../../Assets/undraw_welcome.svg';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -8,8 +9,8 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import WorkIcon from '@mui/icons-material/Work';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import Divider from '@mui/material/Divider';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
+
 
 const WelcomePage = () => {
 
@@ -35,7 +36,7 @@ const WelcomePage = () => {
                                         <PeopleAltIcon />
                                     </Avatar>
                                     </ListItemAvatar>
-                                    <Link href="/plagarismdetection/studentlogin" underline="none">
+                                    <Link to="/plagarismdetection/studentlogin" style={{ color:'#6C63FF', textDecoration: 'none'}}>
                                         { 
                                             <ListItemText  
                                             primary={<Typography style={{ fontWeight: '600'}}>Student</Typography>} 
@@ -50,7 +51,7 @@ const WelcomePage = () => {
                                         <WorkIcon />
                                     </Avatar>
                                     </ListItemAvatar>
-                                    <Link href="/plagarismdetection/facultylogin" underline="none">
+                                    <Link to="/plagarismdetection/facultylogin" style={{ color:'#6C63FF', textDecoration: 'none'}}>
                                         { 
                                             <ListItemText  
                                             primary={<Typography style={{ fontWeight: '600'}}>Faculty</Typography>}  
@@ -65,7 +66,7 @@ const WelcomePage = () => {
                                         <AdminPanelSettingsIcon />
                                     </Avatar>
                                     </ListItemAvatar>
-                                    <Link href="/plagarismdetection/adminlogin" underline="none">
+                                    <Link to="/plagarismdetection/adminlogin" style={{ color:'#6C63FF', textDecoration: 'none'}}>
                                         { <ListItemText 
                                              primary={<Typography style={{ fontWeight: '600'}}>Admin</Typography>} 
                                             secondary="continue as admin" /> 

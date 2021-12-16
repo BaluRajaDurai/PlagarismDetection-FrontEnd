@@ -1,9 +1,9 @@
 import * as React from 'react';
+import { Link } from "react-router-dom";
 import undraw_studentlogin from '../Assets/undraw_studentlogin.svg';
 import TextField from '@mui/material/TextField';
 import {Button} from '@mui/material';
 import { useForm } from "react-hook-form";
-import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
 
 const StudentLogin = () => {
@@ -84,7 +84,7 @@ const StudentLogin = () => {
                                     <Divider />
                                 </div>   
                                 <div class="mt-3 text-center">
-                                    <Link href="/plagarismdetection/studentsignup" underline="none" variant="secondary" style={{ color:'#6C63FF'}}>
+                                    <Link to='/plagarismdetection/studentsignup'  style={{ color:'#6C63FF', textDecoration: 'none'}}>
                                         {"Don't have an account? Sign Up"}
                                     </Link>
                                 </div>
