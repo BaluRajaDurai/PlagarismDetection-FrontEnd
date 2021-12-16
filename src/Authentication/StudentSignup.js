@@ -6,6 +6,9 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useForm } from "react-hook-form";
+import {ToastContainer,toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 
 const StudentSignup = () => {
@@ -13,12 +16,14 @@ const StudentSignup = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const password = useRef({});
+
     password.current = watch("password", "");
+
+    let navigate = useNavigate()
 
     const onSubmit = (data) => {
         // console.log(data);
         // console.log(errors)
-        console.log(data.name);
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -33,8 +38,27 @@ const StudentSignup = () => {
             .then((response) => response.json())
             .then((data) => {
             //   console.log(data);
+              if(data.error)
+              {
+                toast.error(data.error,{autoClose:2500})
+              }
+              else if(data.alert)
+              {
+                toast.error(data.alert,{autoClose:2500})
+              }
+              else
+              {
+                toast.success(data.message,{autoClose:2500})
+                 setTimeout(() => {
+                    //  console.log('This will run after 1 second!')
+                     navigate('/plagarismdetection/studentlogin')
+                  }, 2000);
+              }
+              
+              
             }).catch(function (error) {
-              console.log(error);
+                toast.error("Setup error! Contact admin!",{autoClose:2500})
+                console.log(error);
           })
         
     }
@@ -42,8 +66,9 @@ const StudentSignup = () => {
 
 
     return ( 
-
+        
         <div class="container-fluid">
+            <ToastContainer />
             <div class="row">
                 <div class="col-6 mt-5" >
                     <img src={undraw_studentsignup} height={600} alt='welcome'/>
@@ -66,7 +91,7 @@ const StudentSignup = () => {
                                 fullWidth 
                                 {...register("name", { required: "Student Name is required.",pattern: {
                                     value: /^[A-Za-z]+$/i,
-                                    message: "This is not a valid email",
+                                    message: "This is not a valid name",
                                     } })}
                                 error={Boolean(errors.name)}
                                 helperText={errors.name?.message}
