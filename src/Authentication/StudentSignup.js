@@ -1,4 +1,5 @@
-import React, {useRef } from 'react';
+import React, {useRef,useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import undraw_studentsignup from '../Assets/undraw_studentsignup.svg';
 import TextField from '@mui/material/TextField';
 import {Button,FormControl} from '@mui/material';
@@ -6,12 +7,15 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useForm } from "react-hook-form";
+import DoneIcon from '@mui/icons-material/Done';
 import {ToastContainer,toast} from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from "react-router-dom";
 
+const FORM_ENDPOINT = "https://public.herotofu.com/v1/f3ef3500-5f08-11ec-b63a-19467ff46d66";
 
 const StudentSignup = () => {
+
+    const [submitted, setSubmitted] = useState(false);
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
@@ -19,7 +23,8 @@ const StudentSignup = () => {
 
     password.current = watch("password", "");
 
-    let navigate = useNavigate()
+    let navigate = useNavigate();
+
 
     const onSubmit = (data) => {
         // console.log(data);
@@ -49,9 +54,10 @@ const StudentSignup = () => {
               else
               {
                 toast.success(data.message,{autoClose:2500})
+                
                  setTimeout(() => {
                     //  console.log('This will run after 1 second!')
-                     navigate('/plagarismdetection/studentlogin')
+                    setSubmitted(true);
                   }, 2000);
               }
               
@@ -60,8 +66,39 @@ const StudentSignup = () => {
                 toast.error("Setup error! Contact admin!",{autoClose:2500})
                 console.log(error);
           })
+
+          
         
     }
+
+    const redirect = () => {
+        navigate('/plagarismdetection/studentlogin');
+      }
+
+    if (submitted) {
+        return (
+          <>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 mx-auto mt-5">
+                        <div class="verification">
+                            <div class="verification_header">
+                            <div class="check "><DoneIcon style={{ fontSize: 50 }} color="success"/></div>
+                            </div>
+                            <div class="content">
+                            <h1>Registeration Success !</h1>
+                            <p class="mt-3">Confirmation mail is send to your mail address <br/> please verify your account and continue... </p>
+                            <button onClick={redirect}  className="text-decoration-none text-uppercase btn btn-success">Login</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </>
+        );
+    }
+    
     
 
 
@@ -81,7 +118,7 @@ const StudentSignup = () => {
                                 Student Signup
                             </h1>
 
-                            <form onSubmit={handleSubmit(onSubmit)}>
+                            <form action={FORM_ENDPOINT} onSubmit={handleSubmit(onSubmit)} method="POST" target="_blank">
 
                                 <TextField 
                                 id="outlined-basic" 
