@@ -1,6 +1,7 @@
 body{
 
   font-family: 'Readex Pro', sans-serif;
+  background:#f2f2f2;
   
 }
 
@@ -14,11 +15,6 @@ body{
 .App__form .css-wb57ya-MuiFormControl-root-MuiTextField-root{
   margin-bottom: 27px;
 }
-
-body
-    {
-        background:#f2f2f2;
-    }
 
     .verification
 	{
