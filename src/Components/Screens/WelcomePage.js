@@ -28,7 +28,7 @@ const WelcomePage = () => {
                         </h1>
                         
                         <div class="mt-5">
-                            <List sx={{width: '100%',maxWidth: 360,bgcolor: 'background.paper',}}>
+                            <List sx={{width: '100%',maxWidth: 360,bgcolor: '#f2f2f2',}}>
                                 <ListItem>
                                     <ListItemAvatar>
                                     <Avatar>
@@ -38,7 +38,7 @@ const WelcomePage = () => {
                                     <Link href="/plagarismdetection/studentlogin" underline="none">
                                         { 
                                             <ListItemText  
-                                            primary={<Typography style={{ fontWeight: '600'}}>Student</Typography>} 
+                                            primary={<Typography style={{ fontWeight: '600', fontFamily:'"Readex Pro", sans-serif'}}>Student</Typography>} 
                                             secondary="continue as student" /> 
                                         }
                                     </Link>
@@ -53,7 +53,7 @@ const WelcomePage = () => {
                                     <Link href="/plagarismdetection/facultylogin" underline="none">
                                         { 
                                             <ListItemText  
-                                            primary={<Typography style={{ fontWeight: '600'}}>Faculty</Typography>}  
+                                            primary={<Typography style={{ fontWeight: '600', fontFamily:'"Readex Pro", sans-serif'}}>Faculty</Typography>}  
                                             secondary="continue as faculty" /> 
                                         }
                                     </Link>
@@ -67,7 +67,7 @@ const WelcomePage = () => {
                                     </ListItemAvatar>
                                     <Link href="/plagarismdetection/adminlogin" underline="none">
                                         { <ListItemText 
-                                             primary={<Typography style={{ fontWeight: '600'}}>Admin</Typography>} 
+                                             primary={<Typography style={{ fontWeight: '600', fontFamily:'"Readex Pro", sans-serif'}}>Admin</Typography>} 
                                             secondary="continue as admin" /> 
                                         }
                                     </Link>

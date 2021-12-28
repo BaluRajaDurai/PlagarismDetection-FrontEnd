@@ -3,18 +3,58 @@ import undraw_facultylogin from '../Assets/undraw_facultylogin.svg';
 import TextField from '@mui/material/TextField';
 import {Button} from '@mui/material';
 import { useForm } from "react-hook-form";
+import {ToastContainer,toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const FacultyLogin = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = (data) => console.log(data);
+    const onSubmit = (data) => {
+        // 
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              facultyemail:data.email,
+              facultypassword:data.password,
+            }),
+          };
+          fetch("http://localhost:5000/facultylogin", requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+            //   console.log(data);
+              if(data.error)
+              {
+                toast.error(data.error,{autoClose:2500})
+              }
+              else if(data.error1)
+              {
+                toast.error(data.error1,{autoClose:2500})
+              }
+              else if(data.error2)
+              {
+                toast.error(data.error2,{autoClose:2500})
+              }
+              else
+              {
+                toast.success(data.message,{autoClose:2500})
+                
+              }
+              
+              
+            }).catch(function (error) {
+                toast.error("Login error! Contact admin!",{autoClose:2500})
+                console.log(error);
+          })
+    }
     // console.log(errors)
 
 
     return ( 
 
         <div class="container-fluid">
+             <ToastContainer />
             <div class="row">
                 <div class="col-6 mt-5" >
                     <img src={undraw_facultylogin} height={400} alt='welcome'  style={{position: 'absolute', top: '20%'}}/>
@@ -25,18 +65,7 @@ const FacultyLogin = () => {
                             <h1 class="fw-bolder mt-5 mb-4" style={{ color:'#6C63FF'}}>
                                 Faculty Login
                             </h1>
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <TextField 
-                                id="outlined-basic" 
-                                name="name" 
-                                label="Faculty Name" 
-                                variant="outlined" 
-                                fullWidth 
-                                {...register("name", { required: "Student Name is required." })}
-                                error={Boolean(errors.name)}
-                                helperText={errors.name?.message}
-                                />
-                                
+                            <form onSubmit={handleSubmit(onSubmit)}>        
                                 <TextField 
                                 id="outlined-basic"
                                 label="E-mail"

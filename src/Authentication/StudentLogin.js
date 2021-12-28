@@ -1,28 +1,57 @@
-import * as React from 'react';
+import React from 'react';
 import undraw_studentlogin from '../Assets/undraw_studentlogin.svg';
 import TextField from '@mui/material/TextField';
 import {Button} from '@mui/material';
 import { useForm } from "react-hook-form";
 import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
+import {ToastContainer,toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
 
 const StudentLogin = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) =>{
-        console.log(data);
         const requestOptions = {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-        };
-        fetch('http://localhost:5000/studentdetail', requestOptions)
-        .then((response) => response.json())
-        .then((d) => {
-          console.log(d)
-
-        }).catch(function (error) {
-          console.log(error);
-      })
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              studentname:data.name,
+              studentemail:data.email,
+              studentpassword:data.password,
+            }),
+          };
+          fetch("http://localhost:5000/studentlogin", requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+            //   console.log(data);
+              if(data.error)
+              {
+                toast.error(data.error,{autoClose:2500})
+              }
+              else if(data.error1)
+              {
+                toast.error(data.error1,{autoClose:2500})
+              }
+              else if(data.error2)
+              {
+                toast.error(data.error2,{autoClose:2500})
+              }
+              else if(data.error3)
+              {
+                toast.error(data.error3,{autoClose:2500})
+              }
+              else
+              {
+                toast.success(data.message,{autoClose:2500})
+                
+              }
+              
+              
+            }).catch(function (error) {
+                toast.error("Login error! Contact admin!",{autoClose:2500})
+                console.log(error);
+          })
     } 
     // console.log(errors)
 
@@ -30,6 +59,7 @@ const StudentLogin = () => {
     return (
 
         <div class="container-fluid">
+            <ToastContainer />
             <div class="row">
                 <div class="col-6 mt-5" >
                     <img src={undraw_studentlogin} height={600} alt='welcome'/>
@@ -47,7 +77,10 @@ const StudentLogin = () => {
                                 label="Student Name" 
                                 variant="outlined" 
                                 fullWidth 
-                                {...register("name", { required: "Student Name is required." })}
+                                {...register("name", { required: "Student Name is required.",pattern: {
+                                    value: /^[A-Za-z]+$/i,
+                                    message: "This is not a valid name",
+                                    } })}
                                 error={Boolean(errors.name)}
                                 helperText={errors.name?.message}
                                 />

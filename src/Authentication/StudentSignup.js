@@ -10,8 +10,10 @@ import { useForm } from "react-hook-form";
 import DoneIcon from '@mui/icons-material/Done';
 import {ToastContainer,toast} from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
+import bcrypt from 'bcryptjs'
 
-const FORM_ENDPOINT = "https://public.herotofu.com/v1/f3ef3500-5f08-11ec-b63a-19467ff46d66";
+const salt = bcrypt.genSaltSync(10)
+
 
 const StudentSignup = () => {
 
@@ -29,6 +31,9 @@ const StudentSignup = () => {
     const onSubmit = (data) => {
         // console.log(data);
         // console.log(errors)
+
+        const hashedPassword = bcrypt.hashSync(data.password, salt)
+
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -36,7 +41,7 @@ const StudentSignup = () => {
               studentname:data.name,
               studentbranch:data.branch,
               studentemail:data.email,
-              studentpassword:data.password,
+              studentpassword:hashedPassword,
             }),
           };
           fetch("http://localhost:5000/studentsignup", requestOptions)
@@ -73,7 +78,7 @@ const StudentSignup = () => {
 
     const redirect = () => {
         navigate('/plagarismdetection/studentlogin');
-      }
+    }
 
     if (submitted) {
         return (
@@ -100,10 +105,7 @@ const StudentSignup = () => {
     }
     
     
-
-
     return ( 
-        
         <div class="container-fluid">
             <ToastContainer />
             <div class="row">
@@ -118,7 +120,7 @@ const StudentSignup = () => {
                                 Student Signup
                             </h1>
 
-                            <form action={FORM_ENDPOINT} onSubmit={handleSubmit(onSubmit)} method="POST" target="_blank">
+                            <form  onSubmit={handleSubmit(onSubmit)} >
 
                                 <TextField 
                                 id="outlined-basic" 

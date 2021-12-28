@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     );
   }
 
-const AdminNavbar = (props) => {
+const FacultyNavbar = (props) => {
 
   const classes = useStyles();
   const [anchor, setAnchor] = React.useState(null);
@@ -111,7 +111,7 @@ const AdminNavbar = (props) => {
                     <ListItemIcon>
                       <AddCircleIcon />
                     </ListItemIcon>
-                    <Typography variant="h6"> Add Faculty </Typography>
+                    <Typography variant="h6"> Upload Topic </Typography>
                   </MenuItem>
                   <MenuItem
                     onClick={() => setAnchor(null)}
@@ -121,7 +121,7 @@ const AdminNavbar = (props) => {
                     <ListItemIcon>
                       <ReviewsIcon />
                     </ListItemIcon>
-                    <Typography variant="h6"> View Reports</Typography>
+                    <Typography variant="h6"> View Reviews</Typography>
                   </MenuItem>
                   <MenuItem
                     onClick={() => setAnchor(null)}
@@ -155,7 +155,7 @@ const AdminNavbar = (props) => {
                     
                   >
                     <AddCircleIcon />
-                    <span style={{fontWeight: 600}}>Add Faculty</span>
+                    <span style={{fontWeight: 600}}>Upload Topic</span>
                   </Button>
                   <Button
                     variant="text"
@@ -165,7 +165,7 @@ const AdminNavbar = (props) => {
                   
                   >
                     <ReviewsIcon />
-                    <span style={{fontWeight: 600}}>View Reports</span>
+                    <span style={{fontWeight: 600}}>View Reviews</span>
                   </Button>
                   
                  <Logout />
@@ -179,4 +179,4 @@ const AdminNavbar = (props) => {
     );
 }
  
-export default AdminNavbar;
+export default FacultyNavbar;

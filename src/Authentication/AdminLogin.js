@@ -1,20 +1,65 @@
-import * as React from 'react';
+import React from 'react';
 import undraw_adminlogin from '../Assets/undraw_adminlogin.svg';
+import { useNavigate } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import {Button} from '@mui/material';
 import { useForm } from "react-hook-form";
-
+import {ToastContainer,toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminLogin = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = (data) => console.log(data);
+
+    let navigate = useNavigate();
+
+    const onSubmit = (data) => {
+        // console.log(data);
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+
+              adminemail:data.email,
+              adminpassword:data.password,
+            }),
+          };
+          fetch("http://localhost:5000/adminlogin", requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+            //   console.log(data);
+              if(data.error)
+              {
+                toast.error(data.error,{autoClose:2500})
+              }
+              else if(data.fail)
+              {
+                toast.error(data.fail,{autoClose:2500})
+              }
+              else
+              {
+                localStorage.setItem('loggedIn', true);
+                toast.success(data.message,{autoClose:2500})
+                setTimeout(() => {
+                    //  console.log('This will run after 1 second!')
+                    navigate('/plagarismdetection/adminhome');
+                  }, 2000);
+              }
+              
+              
+            }).catch(function (error) {
+                toast.error("Technical error!",{autoClose:2500})
+                console.log(error);
+          })
+    }
+
     // console.log(errors)
 
 
     return ( 
 
         <div class="container-fluid">
+            <ToastContainer />
             <div class="row">
                 <div class="col-6 mt-5" >
                     <img src={undraw_adminlogin} height={600} alt='welcome' style={{position: 'absolute', marginLeft: '6%'}} />
