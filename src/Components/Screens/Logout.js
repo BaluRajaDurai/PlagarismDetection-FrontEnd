@@ -27,9 +27,12 @@ function Logout() {
   };
 
   function logout() {
-      
-    localStorage.setItem('loggedIn',false)
+
+    localStorage.removeItem("FacultyEmail");
+    localStorage.removeItem("StudentEmail");
+    
     navigate("/plagarismdetection");
+
   }
 
   return (

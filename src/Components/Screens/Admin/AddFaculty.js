@@ -27,49 +27,38 @@ const AddFaculty = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    // console.log(data);
-    // console.log(errors)
 
-    const hashedPassword = bcrypt.hashSync(data.password, salt)
+    const hashedPassword = bcrypt.hashSync(data.password, salt);
 
     const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          facultyname:data.name,
-          facultybranch:data.branch,
-          facultyemail:data.email,
-          facultypassword:hashedPassword,
-          facultytmprypassword:data.password
-        }),
-      };
-      fetch("http://localhost:5000/addfaculty", requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        facultyname: data.name,
+        facultybranch: data.branch,
+        facultyemail: data.email,
+        facultypassword: hashedPassword,
+        facultytmprypassword: data.password,
+      }),
+    };
+    fetch("http://localhost:5000/addfaculty", requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
         //   console.log(data);
-          if(data.error)
-          {
-            toast.error(data.error,{autoClose:2500})
-          }
-          else if(data.alert)
-          {
-            toast.error(data.alert,{autoClose:2500})
-          }
-          else
-          {
-            toast.success(data.message,{autoClose:2500})
-            reset();
-          }
-          
-          
-        }).catch(function (error) {
-            toast.error("Temperory Error!",{autoClose:2500})
-            console.log(error);
+        if (data.error) {
+          toast.error(data.error, { autoClose: 2500 });
+        } else if (data.alert) {
+          toast.error(data.alert, { autoClose: 2500 });
+        } else {
+          toast.success(data.message, { autoClose: 2500 });
+          reset();
+        }
       })
-
-      
-    
-}
+      .catch(function (error) {
+        toast.error("Temperory Error!", { autoClose: 2500 });
+        console.log(error);
+      });
+  };
 
   return (
     <div>
@@ -117,7 +106,9 @@ const AddFaculty = () => {
             <div class="mt-5 ms-5 me-5 ">
               <form onSubmit={handleSubmit(onSubmit)} class="row g-3">
                 <div class="col-6">
-                <label for="name" class="form-label">Faculty Name</label>
+                  <label for="name" class="form-label">
+                    Faculty Name
+                  </label>
                   <TextField
                     id="outlined-basic"
                     name="name"
@@ -136,7 +127,9 @@ const AddFaculty = () => {
                   />
                 </div>
                 <div class="col-6">
-                <label for="name" class="form-label">Faculty Department</label>
+                  <label for="name" class="form-label">
+                    Faculty Department
+                  </label>
                   <FormControl fullWidth style={{ marginBottom: "27px" }}>
                     <InputLabel id="simple-select-label">Dept</InputLabel>
                     <Select
@@ -163,7 +156,9 @@ const AddFaculty = () => {
                   </FormControl>
                 </div>
                 <div class="col-6">
-                <label for="name" class="form-label">Faculty Email</label>
+                  <label for="name" class="form-label">
+                    Faculty Email
+                  </label>
                   <TextField
                     id="outlined-basic"
                     label="E-mail"
@@ -182,7 +177,9 @@ const AddFaculty = () => {
                   />
                 </div>
                 <div class="col-6">
-                <label for="name" class="form-label">Faculty password</label>
+                  <label for="name" class="form-label">
+                    Faculty password
+                  </label>
                   <TextField
                     id="outlined-basic"
                     label="Password"
@@ -213,7 +210,6 @@ const AddFaculty = () => {
                 </div>
               </form>
             </div>
-            
           </Paper>
         </Box>
       </div>

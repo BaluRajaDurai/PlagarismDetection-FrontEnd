@@ -2,7 +2,7 @@ body{
 
   font-family: 'Readex Pro', sans-serif;
   background:#f2f2f2;
-  
+  overflow-x: hidden;
 }
 
 
@@ -10,6 +10,14 @@ body{
   max-width: 700px;
   padding: 37px 37px;
   margin: 37px auto;
+  box-shadow: 1px 30px 60px 8px rgb(70 72 228 / 7%);
+}
+
+.App__profile {
+  max-width: 1000px;
+  padding: 37px 37px;
+  margin: 37px auto;
+  margin-top: 8%;
   box-shadow: 1px 30px 60px 8px rgb(70 72 228 / 7%);
 }
 .App__form .css-wb57ya-MuiFormControl-root-MuiTextField-root{
@@ -76,3 +84,12 @@ body{
         
     }
 
+    input[type=file]::file-selector-button {
+      border: 2px solid #6c5ce7;
+      padding: .2em .4em;
+      border-radius: .2em;
+      background-color: #a29bfe;
+    }
+    
+
+   

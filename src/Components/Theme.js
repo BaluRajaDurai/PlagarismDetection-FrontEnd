@@ -5,10 +5,13 @@ const Theme = createTheme({
         fontFamily: ['"Readex Pro"', 'sans-serif'].join(',')
       },
       palette: {
-        
+        type: 'light',
         primary: {
           main: '#6C63FF'
-        }
+        },
+        secondary: {
+          main: '#FF0000',
+        },
       }
 })
 

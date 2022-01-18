@@ -4,6 +4,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import Theme from "../../Theme";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
+import { ToastContainer, toast } from "react-toastify";
 import PeopleOutlineTwoToneIcon from "@material-ui/icons/PeopleOutlineTwoTone";
 import MaterialTable from "material-table";
 import Backdrop from "@mui/material/Backdrop";
@@ -45,6 +46,7 @@ const AdminHome = () => {
       <ThemeProvider theme={Theme}>
         <AdminNavbar />
       </ThemeProvider>
+      <ToastContainer />
       {loading ? (
         <Backdrop
           sx={{ color: "#6C63FF", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -115,7 +117,10 @@ const AdminHome = () => {
                       }
                     )
                       .then((resp) => resp.json())
-                      .then((resp) => {
+                      .then((data) => {
+                        if (data.message) {
+                          toast.success(data.message, { autoClose: 2500 });
+                        }
                         getFaculty();
                         resolve();
                       });

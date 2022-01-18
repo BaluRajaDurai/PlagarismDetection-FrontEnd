@@ -37,7 +37,7 @@ const PageNotfound = () => {
               color="error"
               style={{ fontWeight: 600 }}
             >
-              Go Back
+              Go Home
             </Button>
           </div>
         </div>

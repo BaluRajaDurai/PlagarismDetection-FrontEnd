@@ -16,10 +16,10 @@ import {
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import Logout from "../Screens/Logout";
+import StudentProfile from "../Screens/Student/StudentProfile";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import HomeIcon from "@mui/icons-material/Home";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ReviewsIcon from "@mui/icons-material/Reviews";
 import LogoutIcon from "@mui/icons-material/Logout";
 
@@ -47,7 +47,7 @@ function HideOnScroll(props) {
   );
 }
 
-const AdminNavbar = (props) => {
+const StudentNavbar = (props) => {
   const classes = useStyles();
   const [anchor, setAnchor] = React.useState(null);
   const open = Boolean(anchor);
@@ -94,7 +94,7 @@ const AdminNavbar = (props) => {
                   <MenuItem
                     onClick={() => setAnchor(null)}
                     component={Link}
-                    to="/plagarismdetection/adminhome"
+                    to="/plagarismdetection/studenthome"
                   >
                     <ListItemIcon>
                       <HomeIcon />
@@ -104,22 +104,12 @@ const AdminNavbar = (props) => {
                   <MenuItem
                     onClick={() => setAnchor(null)}
                     component={Link}
-                    to="/plagarismdetection/addfaculty"
-                  >
-                    <ListItemIcon>
-                      <AddCircleIcon />
-                    </ListItemIcon>
-                    <Typography variant="h6"> Add Faculty </Typography>
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => setAnchor(null)}
-                    component={Link}
-                    to="/plagarismdetection/viewreport"
+                    to="/plagarismdetection/viewcomments"
                   >
                     <ListItemIcon>
                       <ReviewsIcon />
                     </ListItemIcon>
-                    <Typography variant="h6"> View Reports</Typography>
+                    <Typography variant="h6"> View Comments</Typography>
                   </MenuItem>
                   <MenuItem
                     onClick={() => setAnchor(null)}
@@ -138,7 +128,7 @@ const AdminNavbar = (props) => {
                 <Button
                   variant="text"
                   component={Link}
-                  to="/plagarismdetection/adminhome"
+                  to="/plagarismdetection/studenthome"
                   style={{ color: "#FFFFFF" }}
                 >
                   <HomeIcon />
@@ -147,21 +137,14 @@ const AdminNavbar = (props) => {
                 <Button
                   variant="text"
                   component={Link}
-                  to="/plagarismdetection/addfaculty"
-                  style={{ color: "#FFFFFF" }}
-                >
-                  <AddCircleIcon />
-                  <span style={{ fontWeight: 600 }}>Add Faculty</span>
-                </Button>
-                <Button
-                  variant="text"
-                  component={Link}
-                  to="/plagarismdetection/viewreport"
+                  to="/plagarismdetection/viewcomments"
                   style={{ color: "#FFFFFF" }}
                 >
                   <ReviewsIcon />
-                  <span style={{ fontWeight: 600 }}>View Reports</span>
+                  <span style={{ fontWeight: 600 }}>View Comments</span>
                 </Button>
+
+                <StudentProfile />
 
                 <Logout />
               </div>
@@ -173,4 +156,4 @@ const AdminNavbar = (props) => {
   );
 };
 
-export default AdminNavbar;
+export default StudentNavbar;
