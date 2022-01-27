@@ -189,6 +189,7 @@ const StudentSignup = () => {
                   variant="outlined"
                   fullWidth
                   name="password"
+                  type="password"
                   {...register("password", {
                     required: "Password is required.",
                     minLength: {
@@ -210,6 +211,7 @@ const StudentSignup = () => {
                   variant="outlined"
                   fullWidth
                   name="cnfrmpassword"
+                  type="password"
                   {...register("cnfrmpassword", {
                     required: "Confirm Password is required.",
                     validate: (value) =>

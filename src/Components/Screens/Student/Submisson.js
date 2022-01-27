@@ -7,7 +7,7 @@ import Theme from "../../Theme";
 import BackupIcon from "@mui/icons-material/Backup";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Backdrop from "@mui/material/Backdrop";
@@ -21,8 +21,7 @@ const Submisson = () => {
   var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
   var am_pm = date.getHours() >= 12 ? "PM" : "AM";
   hours = hours < 10 ? "0" + hours : hours;
-  var minutes =
-    date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+  var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
   let currentTime = hours + ":" + minutes + " " + am_pm;
 
   let email = localStorage.getItem("StudentEmail");
@@ -37,6 +36,7 @@ const Submisson = () => {
   const [studentInfo, setStudentInfo] = useState([]);
   const [submitted, setStubmitted] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [dataloading, setDataloading] = useState(false);
 
   useEffect(() => {
     getTopic();
@@ -80,48 +80,96 @@ const Submisson = () => {
     navigate("/plagarismdetection/studenthome");
   };
 
-  const handleSubmit = () => {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        studentname: studentInfo.studentname,
-        studentemail: email,
-        branch: studentInfo.studentbranch,
-        duedate: currentDate,
-        duetime: currentTime,
-        docname: fileInput.current.files[0].name,
-        topicname: topicInfo[0].topicname,
-        subjectname: topicInfo[0].subject,
-        topicid: topicInfo[0]._id,
-        fname: topicInfo[0].fname,
-        femail: topicInfo[0].femail,
-        comment: "",
-      }),
-    };
-    fetch("http://localhost:5000/topicsubmisson", requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error) {
-          toast.error(data.error, { autoClose: 2500 });
-        } else {
-          toast.success(data.message, { autoClose: 2500 });
-        }
-      })
-      .catch(function (error) {
-        toast.error("Temperory Error!", { autoClose: 2500 });
-        console.log(error);
-      });
+  const handleSubmit = (e) => {
 
-    fetch("http://localhost:5000/submitverify/" + topicInfo[0]._id, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        studentemail: email,
-      }),
-    });
+    
+    e.preventDefault()
+
+    const myFile = document.getElementById("myFile").value;
+    const idxDot = myFile.lastIndexOf(".") + 1;
+    const extFile = myFile.substr(idxDot, myFile.length).toLowerCase();
+    if ( extFile!=="png"){
+      toast.error("Only png files are allowewd!", { autoClose: 2500 });
+    }
+    else{
+
+      setDataloading(true);
+
+      let formdata = new FormData();
+      formdata.append("file", fileInput.current.files[0]);
+      formdata.append("id", email);
+  
+  
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          studentname: studentInfo.studentname,
+          studentemail: email,
+          branch: studentInfo.studentbranch,
+          duedate: currentDate,
+          duetime: currentTime,
+          docname: fileInput.current.files[0].name,
+          topicname: topicInfo[0].topicname,
+          subjectname: topicInfo[0].subject,
+          topicid: topicInfo[0]._id,
+          fname: topicInfo[0].fname,
+          femail: topicInfo[0].femail,
+          comment: "",
+          result: "",
+        }),
+      };
+      fetch("http://localhost:5000/topicsubmisson", requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.error) {
+            toast.error(data.error, { autoClose: 2500 });
+          } else {
+          const requestOption = {
+            method: "POST",
+            body: formdata,
+          };
+          fetch("http://localhost:8000/upload_file/" + topicInfo[0]._id, requestOption)
+            .then((response) => response.json())
+            .then((value) => {
+  
+              fetch("http://localhost:5000/submitverify/" + topicInfo[0]._id, {
+                method: "PUT",
+                headers: {
+                  "Content-type": "application/json",
+                },
+                body: JSON.stringify({
+                  studentemail: email,
+                }),
+              });
+  
+              toast.success(value.message, { autoClose: 2500 });
+  
+              setDataloading(false);
+  
+              setTimeout(() => {
+                //  console.log('This will run after 1 second!')
+                redirect();
+              }, 2500);
+  
+             
+            })
+            .catch(function (error) {
+              console.log("error");
+            });
+          }
+        })
+        .catch(function (error) {
+          toast.error("Temperory Error!", { autoClose: 2500 });
+          console.log(error);
+        });
+  
+    }   
+
+
+   
+
+   
 
     // const request = {
     //   method: "GET",
@@ -136,7 +184,7 @@ const Submisson = () => {
     //     console.log(error);
     //   });
 
-    redirect();
+   
   };
 
   return (
@@ -229,18 +277,18 @@ const Submisson = () => {
                           </table>
                         </div>
                         <div class="d-flex justify-content-center mt-5">
-                          <Button
+
+                        <LoadingButton
                             disabled={submitted}
                             variant="contained"
                             startIcon={<PublishIcon />}
+                            style={{fontWeight: "600", fontFamily: '"Readex Pro", sans-serif' }}
+                            loading={dataloading}
                             type="submit"
-                            style={{
-                              fontWeight: "600",
-                              fontFamily: '"Readex Pro", sans-serif',
-                            }}
-                          >
+                        >
                             Submit
-                          </Button>
+                        </LoadingButton>
+
                         </div>
                       </form>
                     ) : (

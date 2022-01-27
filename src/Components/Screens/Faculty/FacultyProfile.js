@@ -232,6 +232,7 @@ export default function FacultyProfile() {
                   id="outlined-basic"
                   label="New Password"
                   variant="outlined"
+                  type="password"
                   fullWidth
                   name="password"
                   {...register("password", {

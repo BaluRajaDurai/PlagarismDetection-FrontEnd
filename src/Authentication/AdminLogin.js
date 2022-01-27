@@ -93,6 +93,7 @@ const AdminLogin = () => {
                   variant="outlined"
                   fullWidth
                   name="password"
+                  type="password"
                   {...register("password", {
                     required: "Password is required.",
                   })}

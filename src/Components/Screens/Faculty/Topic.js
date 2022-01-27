@@ -15,8 +15,17 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SendIcon from "@mui/icons-material/Send";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { css } from "@emotion/react";
+import ClockLoader from "react-spinners/ClockLoader";
 
 const Topic = () => {
+
+  const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
+
   let email = localStorage.getItem("FacultyEmail");
 
   const params = useParams();
@@ -27,6 +36,7 @@ const Topic = () => {
   const [message, setMessage] = useState("");
   const [report, setReport] = useState("");
   const [loading, setLoading] = useState(true);
+  const [loader,setLoader] = useState(false)
 
   useEffect(() => {
     getTopics();
@@ -43,6 +53,32 @@ const Topic = () => {
         const topicfilter = data.filter((e) => e.topicid === id);
         setData(topicfilter);
         setLoading(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const checkPlag = () => {
+
+    setLoader(true)
+
+    let topic = data[0].topicid;
+
+    const request = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch("http://localhost:5000/checkplagiarism/" + topic, request)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          toast.error(data.error, { autoClose: 2500 });
+        } else {
+          toast.success(data.message, { autoClose: 2500 });
+          getTopics();
+          setLoader(false)
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -75,6 +111,7 @@ const Topic = () => {
         }
       });
   };
+
 
   const handleReport = (event) => {
     event.preventDefault();
@@ -116,7 +153,7 @@ const Topic = () => {
     { title: "Branch", field: "branch" },
     { title: "Sumitted On", field: "duedate" },
     { title: "Time", field: "duetime" },
-    { title: "Result", field: "result" },
+    { title: "Plag Percentage", field: "result" },
   ];
 
   return (
@@ -161,12 +198,50 @@ const Topic = () => {
         </Backdrop>
       ) : (
         <>
+       
           <div class="container-fluid mt-4">
+
+                {loader ? (
+
+                  
+            <div class="mt-5">
+              <ClockLoader color="#918AFF" loading={loader} css={override} size={250} />
+              <h6 class="text-center mt-5" style={{ fontSize: 22, color: "#6c63ff" }}>
+                Checking for plagiarism please wait........
+              </h6>
+            </div>
+                    
+            
+            ) : (
+            
+         
             <MaterialTable
               title={<h4>Submitted Topics</h4>}
               columns={columns}
               data={data}
               options={{
+                rowStyle: (rowData) => {
+                  if (rowData.result === "") {
+                    return {
+                      color: "black",
+                    };
+                  } else if (rowData.result >= 81 && rowData.result <= 100) {
+                    return {
+                      color: "red",
+                    };
+                  } else if (rowData.result >= 41 && rowData.result <= 80) {
+                    return {
+                      color: "orange",
+                    };
+                  } else if (rowData.result >= 0 && rowData.result <= 40) {
+                    return {
+                      color: "green",
+                    };
+                  } else {
+                    return {};
+                  }
+                },
+
                 sorting: true,
                 exportButton: true,
                 headerStyle: {
@@ -203,6 +278,8 @@ const Topic = () => {
                 },
               ]}
             />
+            )}
+
           </div>
 
           <div class="container-flex ms-4 mt-4 mb-4">
@@ -216,6 +293,7 @@ const Topic = () => {
                     fontWeight: 600,
                     backgroundColor: "#6c63ff",
                   }}
+                  onClick={() => checkPlag()}
                 >
                   Check Plagiarism
                 </Button>
